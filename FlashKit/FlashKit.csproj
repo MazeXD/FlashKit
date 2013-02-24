@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F8F03F4-EF2A-49BE-8C5E-1DC3793D2953}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FlashKit</RootNamespace>
+    <AssemblyName>FlashKit</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Records\AlphaBitmapDataRecord.cs" />
+    <Compile Include="Data\Records\AlphaColorMapDataRecord.cs" />
+    <Compile Include="Data\Records\IDataRecord.cs" />
+    <Compile Include="Data\Records\IRecord.cs" />
+    <Compile Include="Data\Records\RectangleRecord.cs" />
+    <Compile Include="Data\Records\TagHeaderRecord.cs" />
+    <Compile Include="Data\SwfHeader.cs" />
+    <Compile Include="Data\SwfReaderTagMetadata.cs" />
+    <Compile Include="Data\Tags\DefineBinaryDataTag.cs" />
+    <Compile Include="Data\Tags\DefineBitsLossless2Tag.cs" />
+    <Compile Include="Data\Tags\EndTag.cs" />
+    <Compile Include="Data\Tags\SwfTag.cs" />
+    <Compile Include="Data\Tags\SymbolClassTag.cs" />
+    <Compile Include="Data\Tags\UnknownTag.cs" />
+    <Compile Include="IO\SwfByteArray.cs" />
+    <Compile Include="IO\SwfReader.cs" />
+    <Compile Include="IO\SwfReaderContext.cs" />
+    <Compile Include="IO\SwfReadResult.cs" />
+    <Compile Include="IO\SwfWriter.cs" />
+    <Compile Include="IO\SwfWriterContext.cs" />
+    <Compile Include="IO\SwfWriteResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Swf.cs" />
+    <Compile Include="SwfTagType.cs" />
+    <Compile Include="vendor\Ionic.Zlib\CRC32.cs" />
+    <Compile Include="vendor\Ionic.Zlib\Deflate.cs" />
+    <Compile Include="vendor\Ionic.Zlib\GZipStream.cs" />
+    <Compile Include="vendor\Ionic.Zlib\Inflate.cs" />
+    <Compile Include="vendor\Ionic.Zlib\InfTree.cs" />
+    <Compile Include="vendor\Ionic.Zlib\Tree.cs" />
+    <Compile Include="vendor\Ionic.Zlib\Zlib.cs" />
+    <Compile Include="vendor\Ionic.Zlib\ZlibBaseStream.cs" />
+    <Compile Include="vendor\Ionic.Zlib\ZlibCodec.cs" />
+    <Compile Include="vendor\Ionic.Zlib\ZlibConstants.cs" />
+    <Compile Include="vendor\Ionic.Zlib\ZlibStream.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ByteCode\IO\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
