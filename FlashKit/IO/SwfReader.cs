@@ -5,15 +5,13 @@ using Ionic.Zlib;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit.IO
 {
     public class SwfReader
     {
-        private Dictionary<uint, SwfTag> _tags = new Dictionary<uint, SwfTag>()
-        {
+        private readonly Dictionary<uint, SwfTag> _tags = new Dictionary<uint, SwfTag>
+            {
             { SwfTagType.End, new EndTag() }
         };
 

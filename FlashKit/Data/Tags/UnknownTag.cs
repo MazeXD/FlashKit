@@ -1,8 +1,4 @@
 ﻿using FlashKit.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit.Data.Tags
 {
@@ -19,7 +15,7 @@ namespace FlashKit.Data.Tags
         {
             if (header.Length > 0)
             {
-                context.Bytes.ReadBytes(ref Content, (int)header.Length);
+                context.Bytes.ReadBytes(ref Content, header.Length);
             }
         }
 

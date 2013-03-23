@@ -1,9 +1,6 @@
 ﻿using FlashKit.Data;
 using FlashKit.Data.Tags;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit
 {
@@ -14,8 +11,8 @@ namespace FlashKit
 
         public Swf(SwfHeader header = null, List<SwfTag> tags = null)
         {
-            this.Header = header;
-            this.Tags = tags;
+            Header = header;
+            Tags = tags;
         }
     }
 }

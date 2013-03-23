@@ -3,11 +3,8 @@ using FlashKit.Data.Records;
 using FlashKit.Data.Tags;
 using Ionic.Zlib;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit.IO
 {
@@ -117,13 +114,11 @@ namespace FlashKit.IO
                 byte[] content = new byte[bytes.BytesAvailable];
                 bytes.ReadBytes(ref content);
 
-                Stopwatch watch = new Stopwatch();
-                
                 MemoryStream stream = new MemoryStream();
                 ZlibStream zlibStream = new ZlibStream(new MemoryStream(content), CompressionMode.Compress);
 
                 byte[] buffer = new byte[4096];
-                int read = 1;
+                int read;
 
                 while ((read = zlibStream.Read(buffer, 0, buffer.Length)) > 0)
                 {

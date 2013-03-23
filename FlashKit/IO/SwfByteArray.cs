@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace FlashKit.IO
@@ -18,10 +16,10 @@ namespace FlashKit.IO
         public static readonly uint Filter23 = (uint.MaxValue >> -23);
 
         private MemoryStream _stream = new MemoryStream();
-        private BinaryReader _reader = null;
-        private BinaryWriter _writer = null;
+        private BinaryReader _reader;
+        private BinaryWriter _writer;
 
-        private int _bitPosition = 0;
+        private int _bitPosition;
 
         private static uint FloatToUInt32(float value)
         {
@@ -144,6 +142,7 @@ namespace FlashKit.IO
 
         public SwfByteArray(byte[] bytes)
         {
+            _writer = null;
             if (!BitConverter.IsLittleEndian)
             {
                 throw new NotSupportedException("BigEndian systems aren't supported");
@@ -387,9 +386,7 @@ namespace FlashKit.IO
             byte dec = _reader.ReadByte();
             float result = _reader.ReadSByte();
 
-            result += dec / 0xff;
-
-            return result;
+            return result + (float)dec / 0xff;
         }
 
         public void WriteFixed8(float value)
@@ -410,9 +407,7 @@ namespace FlashKit.IO
             ushort dec = _reader.ReadUInt16();
             float result = _reader.ReadInt16();
 
-            result += dec / 0xffff;
-
-            return result;
+            return result + (float)dec / 0xffff;
         }
 
         public void WriteFixed16(float value)
@@ -510,13 +505,12 @@ namespace FlashKit.IO
 
             uint result = 0;
             int bytesRead = 0;
-            byte currentByte;
 
             bool shouldContinue = true;
 
-            if (shouldContinue && bytesRead < 5)
+            while (shouldContinue && bytesRead < 5)
             {
-                currentByte = _reader.ReadByte();
+                byte currentByte = _reader.ReadByte();
                 result = ((currentByte & Filter7) << (7 * bytesRead)) | result;
                 shouldContinue = (currentByte >> 7) == 1;
                 bytesRead += 1;
@@ -561,12 +555,11 @@ namespace FlashKit.IO
             int totalBytes = (int)Math.Ceiling(((double)_bitPosition + length) / 8);
 
             int iter = 0;
-            byte currentByte = 0x00;
             uint result = 0;
 
             while (iter < totalBytes)
             {
-                currentByte = _reader.ReadByte();
+                byte currentByte = _reader.ReadByte();
                 result = (result << 8) | currentByte;
                 iter++;
             }
@@ -690,7 +683,7 @@ namespace FlashKit.IO
             int raw = ReadSB(length);
 
             int integer = raw >> 16;
-            float dec = (raw & Filter16) / 0xffff;
+            float dec = (float)(raw & Filter16) / 0xffff;
 
             return integer + dec;
         }

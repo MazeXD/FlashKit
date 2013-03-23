@@ -1,9 +1,5 @@
 ﻿using FlashKit.Data.Records;
 using FlashKit.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit.Data.Tags
 {

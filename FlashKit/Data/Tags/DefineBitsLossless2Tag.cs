@@ -2,10 +2,7 @@
 using FlashKit.IO;
 using Ionic.Zlib;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 
 namespace FlashKit.Data.Tags
 {
@@ -21,7 +18,7 @@ namespace FlashKit.Data.Tags
         public byte BitmapColorTableSize;
         public IDataRecord BitmapData;
 
-        private Image _cachedImage = null;
+        private Image _cachedImage;
 
         public override uint Type
         {
@@ -87,12 +84,10 @@ namespace FlashKit.Data.Tags
 
                 if (BitmapFormat == ColorMappedImage)
                 {
-                    int dataSize = (BitmapWidth + (8 - (BitmapWidth % 8))) * BitmapHeight;
                     BitmapData.Write(writeContext);
                 }
                 else if (BitmapFormat == 4 || BitmapFormat == ArgbImage)
                 {
-                    int dataSize = BitmapWidth * BitmapHeight;
                     BitmapData.Write(writeContext);
                 }
 
