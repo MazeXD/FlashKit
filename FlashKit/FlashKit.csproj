@@ -45,6 +45,7 @@
     <Compile Include="Data\Records\IDataRecord.cs" />
     <Compile Include="Data\Records\IRecord.cs" />
     <Compile Include="Data\Records\RectangleRecord.cs" />
+    <Compile Include="Data\Records\SymbolRecord.cs" />
     <Compile Include="Data\Records\TagHeaderRecord.cs" />
     <Compile Include="Data\SwfHeader.cs" />
     <Compile Include="Data\SwfReaderTagMetadata.cs" />
