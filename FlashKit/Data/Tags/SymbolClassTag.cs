@@ -1,4 +1,6 @@
-﻿using FlashKit.Data.Records;
+﻿using System.Globalization;
+using System.Linq;
+using FlashKit.Data.Records;
 using FlashKit.IO;
 using System.Collections.Generic;
 
@@ -6,11 +8,21 @@ namespace FlashKit.Data.Tags
 {
     public class SymbolClassTag : SwfTag
     {
-        public Dictionary<ushort, string> Symbols = new Dictionary<ushort, string>();
+        public List<SymbolRecord> Symbols = new List<SymbolRecord>();
 
         public override uint Type
         {
             get { return SwfTagType.SymbolClass; }
+        }
+
+        public string GetClassForCharacter(ushort characterId)
+        {
+            foreach (var symbol in Symbols.Where(symbol => symbol.CharacterId == characterId))
+            {
+                return symbol.ClassName;
+            }
+
+            return characterId.ToString(CultureInfo.InvariantCulture);
         }
 
         public override void Read(SwfReaderContext context, TagHeaderRecord header)
@@ -19,7 +31,10 @@ namespace FlashKit.Data.Tags
 
             for (int i = 0; i < numSymbols; i++)
             {
-                Symbols.Add(context.Bytes.ReadUI16(), context.Bytes.ReadString());
+                var symbol = new SymbolRecord();
+                symbol.Read(context);
+
+                Symbols.Add(symbol);
             }
         }
 
@@ -29,8 +44,7 @@ namespace FlashKit.Data.Tags
 
             foreach (var symbol in Symbols)
             {
-                context.Bytes.WriteUI16(symbol.Key);
-                context.Bytes.WriteString(symbol.Value);
+                symbol.Write(context);
             }
         }
     }
