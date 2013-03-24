@@ -3,8 +3,6 @@ using FlashKit.Data.Records;
 using FlashKit.Data.Tags;
 using Ionic.Zlib;
 using System;
-using System.Diagnostics;
-using System.IO;
 
 namespace FlashKit.IO
 {
@@ -114,23 +112,12 @@ namespace FlashKit.IO
                 byte[] content = new byte[bytes.BytesAvailable];
                 bytes.ReadBytes(ref content);
 
-                MemoryStream stream = new MemoryStream();
-                ZlibStream zlibStream = new ZlibStream(new MemoryStream(content), CompressionMode.Compress);
-
-                byte[] buffer = new byte[4096];
-                int read;
-
-                while ((read = zlibStream.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    stream.Write(buffer, 0, read);
-                }
-                
-                byte[] compressed = new byte[stream.Length];
-                Array.Copy(stream.GetBuffer(), compressed, stream.Length);
+                byte[] compressed = ZlibStream.CompressBuffer(content);
                 
                 bytes.BytePosition = 0;
                 byte[] temp = new byte[8];
                 bytes.ReadBytes(ref temp);
+
 
                 SwfByteArray newBytes = new SwfByteArray(temp);
                 newBytes.BytePosition = 8;
